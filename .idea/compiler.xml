@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="1.7">
+      <module name="Mvi_Example.app" target="11" />
+      <module name="Mvi_Example.core" target="11" />
+      <module name="Mvi_Example.data" target="11" />
+      <module name="Mvi_Example.features.auth" target="11" />
+      <module name="Mvi_Example.features.detail-info" target="11" />
+      <module name="Mvi_Example.features.profile" target="11" />
+      <module name="Mvi_Example.features.search" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

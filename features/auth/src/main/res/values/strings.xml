@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fragment_start_greetings">Welcome to \n MVI Example APP</string>
+    <string name="fragment_start_login">Log in</string>
+    <string name="fragment_start_details_info">See details: %s</string>
+</resources>

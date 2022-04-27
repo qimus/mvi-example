@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fragment_search_search_input_label">Ключевое слово</string>
+    <string name="fragment_search_no_result">По вашему запросу ничего не найдено</string>
+    <string name="fragment_search_empty_search_input">Введите фразу для поиска</string>
+    <string name="fragment_search_menu_profile">Go to profile</string>
+</resources>
