@@ -7,14 +7,14 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import ru.mvi.core.DispatcherProvider
 import ru.mvi.core.mvi.*
-import ru.mvi.domain.model.GithubSearchItem
-import ru.mvi.domain.model.GithubSearchResponse
+import ru.mvi.domain.model.GithubRepositoryItem
+import ru.mvi.domain.model.GithubSearchResult
 import ru.mvi.domain.repository.GithubRepository
 import javax.inject.Inject
 
 data class SearchState(
     val search: String = "",
-    val items: List<GithubSearchItem> = listOf(),
+    val items: List<GithubRepositoryItem> = listOf(),
     val isFetching: Boolean = false,
     val error: String? = null,
     val currentPage: Int = 1
@@ -34,7 +34,7 @@ sealed class UiEvent : MviEvent {
 
 sealed class Action : MviAction {
     class ItemsLoaded(
-        val items: List<GithubSearchItem>,
+        val items: List<GithubRepositoryItem>,
         val page: Int = 1
     ) : Action()
     class Error(val message: String) : Action()
@@ -96,7 +96,7 @@ class SearchViewModel private constructor(
         is Action.Search -> state.copy(search = action.query)
     }
 
-    private fun handleSearchResult(result: Result<GithubSearchResponse>, page: Int = 1) {
+    private fun handleSearchResult(result: Result<GithubSearchResult>, page: Int = 1) {
         result.onSuccess { res ->
             setAction(Action.ItemsLoaded(items = res.items, page = page))
         }

@@ -11,7 +11,6 @@ import ru.mvi.core.navigation.Navigation
 import ru.mvi.core.navigation.Router
 import ru.mvi.domain.AccountManager
 import ru.mvi.domain.repository.AccessTokenRepository
-import ru.mvi.domain.repository.CurrentUserRepository
 import ru.mvi.domain.repository.GithubRepository
 import javax.inject.Inject
 
@@ -44,5 +43,7 @@ class AuthModuleDepsImpl @Inject constructor(
 }
 
 class ProfileModuleDepsImpl @Inject constructor(
-    override val accountManager: AccountManager
+    override val accountManager: AccountManager,
+    override val githubRepository: GithubRepository,
+    override val navigation: Navigation
 ) : ProfileModuleDeps

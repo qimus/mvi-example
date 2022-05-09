@@ -3,7 +3,6 @@ package ru.features.profile.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.mvi.core.mvi.*
 import ru.mvi.domain.AccountManager
@@ -14,12 +13,17 @@ sealed class UiAction : MviAction {
     class CurrentUser(val user: User): UiAction()
 }
 
-sealed class UiEvent : MviEvent {}
+sealed class UiEvent : MviEvent {
+    object ShowRepos : UiEvent()
+}
 
-sealed class UiEffect : MviEffect {}
+sealed class UiEffect : MviEffect {
+    class ShowRepos(val login: String) : UiEffect()
+}
 
 data class UiState(
-    val user: User?
+    val user: User?,
+    val isFetching: Boolean = false
 ) : MviState
 
 class ProfileViewModel(
@@ -27,6 +31,8 @@ class ProfileViewModel(
 ) : MviViewModel<UiAction, UiState, UiEffect, UiEvent>() {
 
     init {
+        viewModelScope.launch { events.collect(::handleEvent) }
+
         viewModelScope.launch {
             accManager.getCurrentUser().collect { user ->
                 setAction(UiAction.CurrentUser(user))
@@ -36,13 +42,23 @@ class ProfileViewModel(
 
     fun logout() = viewModelScope.launch { accManager.logout() }
 
+    private fun handleEvent(event: UiEvent) {
+        when (event) {
+            is UiEvent.ShowRepos -> setEffect {
+                val login = state.value.user!!.login
+                UiEffect.ShowRepos(login)
+            }
+        }
+    }
+
+
     override fun reduceState(state: UiState, action: UiAction): UiState {
         return when (action) {
             is UiAction.CurrentUser -> state.copy(user = action.user)
         }
     }
 
-    override fun createInitState(): UiState = UiState(null)
+    override fun createInitState(): UiState = UiState(user = null)
 
     class Factory @Inject constructor(
         private val accManager: AccountManager

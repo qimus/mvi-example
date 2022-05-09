@@ -1,12 +1,11 @@
-package ru.features.search.presentation
+package ru.features.profile.presentation.repos
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import ru.features.search.databinding.RvSearchGithubItemBinding
+import ru.features.profile.databinding.RvProfileGithubItemBinding
 import ru.mvi.domain.model.GithubRepositoryItem
 
 class DiffCallback : DiffUtil.ItemCallback<GithubRepositoryItem>() {
@@ -19,12 +18,12 @@ class DiffCallback : DiffUtil.ItemCallback<GithubRepositoryItem>() {
     }
 }
 
-class SearchAdapter(
+class ProfileReposAdapter(
     private val onDetailsClick: (GithubRepositoryItem) -> Unit
 ) : ListAdapter<GithubRepositoryItem, RecyclerView.ViewHolder>(DiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = RvSearchGithubItemBinding.inflate(inflater, parent, false)
+        val binding = RvProfileGithubItemBinding.inflate(inflater, parent, false)
 
         return GithubItemViewHolder(binding, onDetailsClick)
     }
@@ -34,13 +33,12 @@ class SearchAdapter(
     }
 
     class GithubItemViewHolder(
-        private val binding: RvSearchGithubItemBinding,
+        private val binding: RvProfileGithubItemBinding,
         private val onDetailsClick: (GithubRepositoryItem) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: GithubRepositoryItem) {
             binding.root.setOnClickListener { onDetailsClick(item) }
-            Glide.with(binding.ivAvatar).load(item.owner.avatarUrl).into(binding.ivAvatar)
             binding.tvName.text = item.name
             binding.tvDescription.text = item.fullName
             binding.tvStarCount.text = item.starsCount.toString()

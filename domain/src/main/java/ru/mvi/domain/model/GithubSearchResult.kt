@@ -2,14 +2,14 @@ package ru.mvi.domain.model
 
 import com.google.gson.annotations.SerializedName
 
-data class GithubSearchResponse(
+data class GithubSearchResult(
     @SerializedName("total_count")
     val totalCount: Int,
     @SerializedName("items")
-    val items: List<GithubSearchItem>
+    val items: List<GithubRepositoryItem>
 )
 
-data class GithubSearchItem(
+data class GithubRepositoryItem(
     @SerializedName("id")
     val id: Long,
     @SerializedName("name")

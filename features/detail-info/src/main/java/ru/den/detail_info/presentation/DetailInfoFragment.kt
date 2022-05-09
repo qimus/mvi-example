@@ -15,14 +15,14 @@ import ru.mvi.core.presentation.LayoutInflateMethod
 import ru.mvi.core.utils.asHref
 import ru.mvi.core.utils.pretty
 import ru.mvi.core.utils.setHtml
-import ru.mvi.domain.model.GithubSearchItem
+import ru.mvi.domain.model.GithubRepositoryItem
 import kotlin.properties.Delegates
 
 class DetailInfoFragment : BaseFragment<FragmentDetailInfoBinding>() {
     companion object {
         private const val ARG_MODEL = "argModel"
 
-        fun newInstance(githubItem: GithubSearchItem): DetailInfoFragment {
+        fun newInstance(githubItem: GithubRepositoryItem): DetailInfoFragment {
             return DetailInfoFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_MODEL, GithubItem.from(githubItem))
@@ -44,7 +44,7 @@ class DetailInfoFragment : BaseFragment<FragmentDetailInfoBinding>() {
     override fun configure(binding: FragmentDetailInfoBinding) = with(binding) {
         tvName.text = item.fullName
         tvDescription.text = item.description
-        Glide.with(binding.root).load(item.owner.avatarUrl).into(ivImage)
+        Glide.with(binding.root).load(item.owner.avatarUrl).circleCrop().into(ivImage)
         chipFork.text = item.forksCount.pretty()
         chipStart.text = item.starsCount.pretty()
         chipWatch.text = item.watchersCount.pretty()

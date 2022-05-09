@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="fragment_profile_logout">Logout</string>
+    <string name="fragment_profile_my_repos">Show repositories</string>
+    <string name="fragment_profile_repo_title">Repositories</string>
+
+    <string name="fragment_profile_sort_field_full_name">Full name</string>
+    <string name="fragment_profile_sort_field_created">Created</string>
+    <string name="fragment_profile_sort_field_updated">Updated</string>
+    <string name="fragment_profile_sort_field_pushed">Pushed</string>
 </resources>

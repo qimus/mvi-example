@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Some name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_name"
+        tools:text="Some description" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:tint="@color/icon_default"
+        app:layout_constraintBottom_toBottomOf="@id/tv_star_count"
+        app:layout_constraintEnd_toStartOf="@id/barrier_icon"
+        app:layout_constraintTop_toTopOf="@id/tv_star_count"
+        app:srcCompat="@drawable/ic_star" />
+
+    <TextView
+        android:id="@+id/tv_star_count"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="155K" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_fork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:tint="@color/icon_default"
+        app:layout_constraintBottom_toBottomOf="@id/tv_fork_count"
+        app:layout_constraintEnd_toStartOf="@id/barrier_icon"
+        app:layout_constraintTop_toTopOf="@id/tv_fork_count"
+        app:srcCompat="@drawable/ic_fork" />
+
+    <TextView
+        android:id="@+id/tv_fork_count"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="start"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_star_count"
+        tools:text="155K" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="start"
+        app:constraint_referenced_ids="tv_fork_count, tv_star_count" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

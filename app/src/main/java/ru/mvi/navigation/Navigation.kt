@@ -7,7 +7,7 @@ import ru.features.search.presentation.SearchFragment
 import ru.mvi.core.navigation.Navigation
 
 import ru.mvi.core.navigation.Screen
-import ru.mvi.domain.model.GithubSearchItem
+import ru.mvi.domain.model.GithubRepositoryItem
 import javax.inject.Inject
 
 
@@ -16,7 +16,7 @@ class NavigationImpl @Inject constructor() : Navigation {
         SearchFragment.newInstance()
     }
 
-    override fun detailsInfo(item: GithubSearchItem) = Screen("details-info") {
+    override fun detailsInfo(item: GithubRepositoryItem) = Screen("details-info") {
         DetailInfoFragment.newInstance(item)
     }
 

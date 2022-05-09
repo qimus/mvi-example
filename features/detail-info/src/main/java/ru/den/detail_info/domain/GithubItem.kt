@@ -2,7 +2,7 @@ package ru.den.detail_info.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import ru.mvi.domain.model.GithubSearchItem
+import ru.mvi.domain.model.GithubRepositoryItem
 import ru.mvi.domain.model.GithubSearchOwner
 
 @Parcelize
@@ -19,7 +19,7 @@ data class GithubItem(
     val htmlUrl: String
 ) : Parcelable {
     companion object {
-        fun from(item: GithubSearchItem): GithubItem = GithubItem(
+        fun from(item: GithubRepositoryItem): GithubItem = GithubItem(
             id = item.id,
             name = item.name,
             fullName = item.fullName,

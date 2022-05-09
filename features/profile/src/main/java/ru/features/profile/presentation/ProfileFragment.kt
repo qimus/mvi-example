@@ -2,15 +2,12 @@ package ru.features.profile.presentation
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.launch
 import ru.features.profile.databinding.FragmentProfileBinding
 import ru.features.profile.di.injector
 import ru.mvi.core.presentation.BaseFragment
 import ru.mvi.core.presentation.LayoutInflateMethod
 import ru.mvi.core.utils.collectFlow
-import ru.mvi.domain.AccountManager
 import javax.inject.Inject
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
@@ -23,6 +20,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     @Inject
     lateinit var viewModelFactory: ProfileViewModel.Factory
 
+    private var reposBottomModal: ReposBottomSheetModal? = null
+
     private val viewModel: ProfileViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[ProfileViewModel::class.java]
     }
@@ -33,11 +32,22 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     }
 
     override fun configure(binding: FragmentProfileBinding) = with(binding) {
-        btnLogout.setOnClickListener {
-            viewModel.logout()
-        }
+        btnLogout.setOnClickListener { viewModel.logout() }
+        tvMyRepos.setOnClickListener { viewModel.setEvent(UiEvent.ShowRepos) }
 
         collectFlow(viewModel.state, ::renderState)
+        collectFlow(viewModel.effect, ::handleSideEffect)
+    }
+
+    private fun handleSideEffect(effect : UiEffect) {
+        when (effect) {
+            is UiEffect.ShowRepos -> {
+                ReposBottomSheetModal.newInstance(effect.login).also {
+                    reposBottomModal = it
+                    it.show(parentFragmentManager, ReposBottomSheetModal.TAG)
+                }
+            }
+        }
     }
 
     private fun renderState(state: UiState) {
@@ -46,7 +56,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             state.user?.let { user ->
                 tvName.text = user.login
                 tvDescription.text = user.name
-                Glide.with(ivImage).load(user.avatar).into(ivImage)
+                Glide.with(ivImage).load(user.avatar).circleCrop().into(ivImage)
             }
         }
     }
